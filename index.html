@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Deneth Fashion POS</title>
+    <link rel="icon" type="image/png" href="/assets/aistudio/Fauget_Clothing_Mark_Stylist_Logo_-removebg-preview-Picsart-AiImageEnhancer_e92e9ecb.png" />
+    <meta name="description" content="Smart, mobile & desktop POS system for Deneth Fashion boutique with portable terminal thermal printer support, live calculator, product manager, and MongoDB backend." />
+    <meta property="og:title" content="Deneth Fashion POS" />
+    <meta property="og:description" content="Smart, mobile & desktop POS system for Deneth Fashion boutique with portable terminal thermal printer support, live calculator, product manager, and MongoDB backend." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+      // Initialize saved theme immediately to prevent flashing
+      try {
+        var savedTheme = localStorage.getItem('df_theme');
+        if (savedTheme === 'light') {
+          document.documentElement.classList.remove('dark');
+          document.documentElement.classList.add('light');
+        } else {
+          document.documentElement.classList.add('dark');
+          document.documentElement.classList.remove('light');
+        }
+      } catch (e) {}
+
+      // Ignore WebSocket runner disconnect events in sandboxed preview iframe
+      window.addEventListener('error', function(e) {
+        if (e.message && (e.message.includes('WebSocket') || e.message.includes('createWebSocketModuleRunnerTransport'))) {
+          e.stopImmediatePropagation();
+        }
+      });
+      window.addEventListener('unhandledrejection', function(e) {
+        var str = (e.reason && (e.reason.message || String(e.reason))) || '';
+        if (str.includes('WebSocket') || str.includes('createWebSocketModuleRunnerTransport')) {
+          e.stopImmediatePropagation();
+          e.preventDefault();
+        }
+      });
+    </script>
+  </head>
+  <body class="bg-stone-50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 antialiased font-sans selection:bg-amber-500/20 selection:text-amber-700 dark:selection:text-amber-300">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

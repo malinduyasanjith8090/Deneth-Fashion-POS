@@ -1,0 +1,159 @@
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+}
+
+.font-display {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-mono-receipt {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Logo inversion helper */
+.logo-adaptive {
+  filter: none;
+}
+.dark .logo-adaptive {
+  filter: invert(1) brightness(1.1);
+}
+
+/* Portable Thermal Printer Rules (58mm / 80mm ESC/POS compatible) */
+@media print {
+  @page {
+    margin: 0mm !important;
+    size: auto;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+    font-size: 11px !important;
+    line-height: 1.25 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* 1. Hide all application elements and modals by default */
+  body * {
+    visibility: hidden !important;
+  }
+
+  /* 2. Unhide ONLY the printable thermal receipt and all its descendants */
+  #thermal-receipt-printable,
+  #thermal-receipt-printable * {
+    visibility: visible !important;
+  }
+
+  /* 3. Pull receipt cleanly to the top-left of the paper roll */
+  #thermal-receipt-printable {
+    display: block !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 58mm !important;
+    max-width: 58mm !important;
+    padding: 2.5mm 1.5mm !important;
+    margin: 0 !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-family: 'JetBrains Mono', 'Courier New', monospace !important;
+    font-size: 10.5px !important;
+    line-height: 1.2 !important;
+    box-sizing: border-box !important;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  #thermal-receipt-printable img {
+    display: block !important;
+    visibility: visible !important;
+    width: 46mm !important;
+    max-width: 90% !important;
+    height: auto !important;
+    max-height: 26mm !important;
+    margin: 0 auto 6px auto !important;
+    object-fit: contain !important;
+    filter: grayscale(100%) contrast(220%) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* 80mm wide printer mode */
+  body[data-print-width="80mm"] #thermal-receipt-printable,
+  #thermal-receipt-printable.printer-width-80mm,
+  #thermal-receipt-printable[data-width="80mm"],
+  .printer-width-80mm #thermal-receipt-printable {
+    width: 80mm !important;
+    max-width: 80mm !important;
+    font-size: 12px !important;
+    padding: 3mm 2mm !important;
+  }
+
+  body[data-print-width="80mm"] #thermal-receipt-printable img,
+  #thermal-receipt-printable.printer-width-80mm img,
+  #thermal-receipt-printable[data-width="80mm"] img,
+  .printer-width-80mm #thermal-receipt-printable img {
+    width: 62mm !important;
+    max-width: 88% !important;
+    max-height: 32mm !important;
+  }
+
+  #thermal-receipt-printable * {
+    color: #000000 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  #thermal-receipt-printable hr,
+  #thermal-receipt-printable .receipt-divider {
+    border-top: 1px dashed #000000 !important;
+    margin: 6px 0 !important;
+  }
+
+  /* Suppress browser artifacts and backdrop overlays */
+  .no-print,
+  button,
+  nav,
+  header {
+    display: none !important;
+  }
+}

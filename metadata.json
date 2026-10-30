@@ -1,0 +1,8 @@
+{
+  "name": "Deneth Fashion POS",
+  "description": "Smart, mobile & desktop POS system for Deneth Fashion boutique with portable terminal thermal printer support, live calculator, product manager, and MongoDB backend.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
